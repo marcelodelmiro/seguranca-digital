@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Segurança Digital para Todos – Goianinha/RN</title>
+  <style>
+    :root {
+      --azul: #1a4b8c;
+      --azul-claro: #2d6cc0;
+      --amarelo: #f5a623;
+      --cinza: #f4f6f9;
+      --texto: #2c2c2c;
+      --branco: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: var(--texto);
+      background: var(--branco);
+      line-height: 1.7;
+    }
+
+    /* Cabeçalho */
+    header {
+      background: var(--azul);
+      color: var(--branco);
+      text-align: center;
+      padding: 40px 20px 30px;
+    }
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1rem;
+      opacity: 0.88;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* Menu de navegação */
+    nav {
+      background: var(--azul-claro);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    nav a {
+      color: var(--branco);
+      text-decoration: none;
+      padding: 14px 22px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    nav a:hover { background: rgba(255,255,255,0.15); }
+
+    /* Seções */
+    section { padding: 56px 20px; }
+    section:nth-child(even) { background: var(--cinza); }
+
+    .container { max-width: 960px; margin: 0 auto; }
+
+    h2 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--azul);
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 36px;
+      font-size: 1rem;
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--branco);
+      border-radius: 12px;
+      padding: 28px 22px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      border-top: 4px solid var(--azul);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+    .card .icon { font-size: 2.2rem; margin-bottom: 12px; }
+    .card h3 { font-size: 1.05rem; font-weight: 700; color: var(--azul); margin-bottom: 8px; }
+    .card p { font-size: 0.92rem; color: #555; }
+
+    /* Dicas por público */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: none;
+      border: 2px solid var(--azul);
+      color: var(--azul);
+      padding: 8px 20px;
+      border-radius: 24px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--azul);
+      color: var(--branco);
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .tip-list { list-style: none; }
+    .tip-list li {
+      padding: 12px 16px;
+      background: var(--branco);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+      font-size: 0.94rem;
+    }
+    .tip-list li .tip-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+    /* Quiz */
+    .quiz-box {
+      background: var(--branco);
+      border-radius: 14px;
+      padding: 32px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.09);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .quiz-question { font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; color: var(--azul); }
+    .quiz-options { list-style: none; }
+    .quiz-options li {
+      margin-bottom: 10px;
+    }
+    .quiz-options label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--cinza);
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.94rem;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .quiz-options input[type="radio"] { accent-color: var(--azul); }
+    .quiz-options label:hover { border-color: var(--azul-claro); }
+    .quiz-options label.correct { border-color: #27ae60; background: #eafaf1; }
+    .quiz-options label.wrong { border-color: #e74c3c; background: #fdf0ef; }
+
+    .btn {
+      display: inline-block;
+      background: var(--azul);
+      color: var(--branco);
+      padding: 13px 32px;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 18px;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+    .btn:hover { background: var(--azul-claro); }
+    .btn.amarelo { background: var(--amarelo); color: var(--azul); }
+    .btn.amarelo:hover { background: #e09515; }
+
+    #quiz-result {
+      margin-top: 18px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: none;
+    }
+    #quiz-result.ok { background: #eafaf1; color: #1e8449; border: 1.5px solid #27ae60; }
+    #quiz-result.err { background: #fdf0ef; color: #922b21; border: 1.5px solid #e74c3c; }
+
+    /* Formulário de feedback */
+    .form-box {
+      background: var(--branco);
+      border-radius: 14px;
+      padding: 32px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.09);
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .form-box label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--azul);
+    }
+    .form-box input,
+    .form-box select,
+    .form-box textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #d0d8e4;
+      border-radius: 8px;
+      font-size: 0.93rem;
+      margin-bottom: 18px;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    .form-box input:focus,
+    .form-box select:focus,
+    .form-box textarea:focus { border-color: var(--azul-claro); }
+    .form-box textarea { min-height: 90px; resize: vertical; }
+
+    #form-success {
+      display: none;
+      text-align: center;
+      padding: 28px;
+      color: #1e8449;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    #form-success .check { font-size: 2.5rem; margin-bottom: 10px; }
+
+    /* Rodapé */
+    footer {
+      background: var(--azul);
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 0.85rem;
+    }
+    footer strong { color: var(--branco); }
+
+    @media (max-width: 600px) {
+      header { padding: 30px 16px 24px; }
+      .quiz-box, .form-box { padding: 22px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Cabeçalho -->
+<header>
+  <h1>🔐 Segurança Digital para Todos</h1>
+  <p>Aprenda a se proteger na internet com dicas simples e práticas para toda a família.</p>
+</header>
+
+<!-- Menu -->
+<nav>
+  <a href="#sobre">Sobre</a>
+  <a href="#dicas">Dicas</a>
+  <a href="#quiz">Quiz</a>
+  <a href="#feedback">Participar</a>
+</nav>
+
+<!-- Sobre -->
+<section id="sobre">
+  <div class="container">
+    <h2>O que é este projeto?</h2>
+    <p class="subtitle">Uma iniciativa de inclusão digital desenvolvida por estudante do curso de Análise e Desenvolvimento de Sistemas da UNINTER para a comunidade de Goianinha/RN.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="icon">🎯</div>
+        <h3>Objetivo</h3>
+        <p>Levar informações sobre segurança digital de forma clara e acessível para pessoas de todas as idades da comunidade local.</p>
+      </div>
+      <div class="card">
+        <div class="icon">👥</div>
+        <h3>Público-alvo</h3>
+        <p>Moradores de Goianinha/RN (crianças, adultos e idosos) que usam celular, redes sociais ou internet no dia a dia.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📋</div>
+        <h3>Como participar</h3>
+        <p>Leia as dicas, faça o quiz e deixe seu feedback. Sua participação ajuda a melhorar a segurança digital da nossa comunidade!</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Dicas -->
+<section id="dicas">
+  <div class="container">
+    <h2>Dicas de Segurança Digital</h2>
+    <p class="subtitle">Escolha o seu perfil e veja dicas personalizadas.</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('criancas', this)">👦 Crianças</button>
+      <button class="tab-btn" onclick="showTab('adultos', this)">👩 Adultos</button>
+      <button class="tab-btn" onclick="showTab('idosos', this)">👴 Idosos</button>
+    </div>
+
+    <div id="tab-criancas" class="tab-content active">
+      <ul class="tip-list">
+        <li><span class="tip-icon">🔒</span>Nunca compartilhe sua senha com ninguém, nem com amigos da escola.</li>
+        <li><span class="tip-icon">📵</span>Não aceite pedido de amizade de pessoas que você não conhece na vida real.</li>
+        <li><span class="tip-icon">💬</span>Se alguém te pedir fotos ou informações pessoais online, conte para um adulto de confiança imediatamente.</li>
+        <li><span class="tip-icon">⏰</span>Combine um horário para usar o celular e respeite esse limite.</li>
+        <li><span class="tip-icon">🎮</span>Cuidado com downloads de jogos: use apenas lojas oficiais (Google Play ou App Store).</li>
+        <li><span class="tip-icon">🚫</span>Bullying online é crime. Guarde prints e conte para seus pais ou professores.</li>
+      </ul>
+    </div>
+
+    <div id="tab-adultos" class="tab-content">
+      <ul class="tip-list">
+        <li><span class="tip-icon">🔑</span>Use senhas fortes: misture letras maiúsculas, minúsculas, números e símbolos. Exemplo: Goiani@2024!</li>
+        <li><span class="tip-icon">📧</span>Desconfie de e-mails pedindo seus dados bancários ou senhas. Bancos nunca pedem isso por e-mail.</li>
+        <li><span class="tip-icon">🛜</span>Evite fazer compras ou acessar o banco em redes Wi-Fi públicas.</li>
+        <li><span class="tip-icon">🔄</span>Mantenha seu celular e aplicativos sempre atualizados.</li>
+        <li><span class="tip-icon">✅</span>Ative a verificação em duas etapas no WhatsApp, Instagram e e-mail.</li>
+        <li><span class="tip-icon">🎣</span>Antes de clicar em links suspeitos, verifique o endereço. Sites falsos imitam empresas reais.</li>
+        <li><span class="tip-icon">📲</span>Cuidado com promoções milagrosas no WhatsApp. Na maioria das vezes, são golpes.</li>
+      </ul>
+    </div>
+
+    <div id="tab-idosos" class="tab-content">
+      <ul class="tip-list">
+        <li><span class="tip-icon">📞</span>Se alguém ligar dizendo ser do banco e pedir sua senha, desligue e ligue de volta no número oficial do banco.</li>
+        <li><span class="tip-icon">🤝</span>Nunca entregue seu celular para desconhecidos "ajudarem" a resolver um problema.</li>
+        <li><span class="tip-icon">💸</span>Desconfie de mensagens que afirmam que você ganhou um prêmio e precisam de seus dados.</li>
+        <li><span class="tip-icon">👨‍👩‍👧</span>Antes de fazer qualquer pagamento pedido por mensagem, confirme pessoalmente ou por ligação com a família.</li>
+        <li><span class="tip-icon">🔐</span>Não anote sua senha no celular nem a compartilhe com ninguém.</li>
+        <li><span class="tip-icon">📱</span>Peça ajuda a um familiar de confiança antes de instalar qualquer aplicativo desconhecido.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Quiz -->
+<section id="quiz">
+  <div class="container">
+    <h2>Quiz: Teste seus Conhecimentos</h2>
+    <p class="subtitle">Responda as perguntas e descubra o quanto você já sabe sobre segurança digital.</p>
+
+    <div class="quiz-box">
+      <div id="q-area">
+        <p class="quiz-question" id="q-text"></p>
+        <ul class="quiz-options" id="q-options"></ul>
+        <div id="quiz-result"></div>
+        <button class="btn" id="btn-action" onclick="checkAnswer()">Responder</button>
+      </div>
+      <div id="quiz-final" style="display:none; text-align:center;">
+        <div style="font-size:2.5rem; margin-bottom:12px;">🏆</div>
+        <p id="final-score" style="font-size:1.15rem; font-weight:800; color:var(--azul); margin-bottom:8px;"></p>
+        <p style="font-size:0.93rem; color:#555;">Compartilhe o site com alguém da sua família!</p>
+        <button class="btn amarelo" style="margin-top:16px;" onclick="restartQuiz()">Refazer o Quiz</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feedback -->
+<section id="feedback">
+  <div class="container">
+    <h2>Deixe seu Feedback</h2>
+    <p class="subtitle">Sua opinião é muito importante para melhorar este projeto. Leva menos de 1 minuto!</p>
+
+    <div class="form-box">
+      <form id="form-area" onsubmit="submitFeedback(event)">
+        <label for="f-nome">Seu nome (opcional)</label>
+        <input type="text" id="f-nome" name="Nome" placeholder="Ex: Maria ou Anônimo" />
+
+        <label for="f-idade">Faixa etária *</label>
+        <select id="f-idade" name="Faixa etária" required>
+          <option value="">Selecione...</option>
+          <option>Menos de 18 anos</option>
+          <option>18 a 35 anos</option>
+          <option>36 a 55 anos</option>
+          <option>Acima de 55 anos</option>
+        </select>
+
+        <label for="f-avaliacao">Como você avalia o site? *</label>
+        <select id="f-avaliacao" name="Avaliação" required>
+          <option value="">Selecione...</option>
+          <option>5 ⭐ Excelente, aprendi muito!</option>
+          <option>4 ⭐ Bom, gostei bastante</option>
+          <option>3 ⭐ Regular, pode melhorar</option>
+          <option>2 ⭐ Fraco, pouca informação útil</option>
+        </select>
+
+        <label for="f-tema">Qual dica você achou mais útil?</label>
+        <select id="f-tema" name="Dica mais útil">
+          <option value="">Selecione...</option>
+          <option>Dicas para crianças</option>
+          <option>Dicas para adultos</option>
+          <option>Dicas para idosos</option>
+          <option>O quiz</option>
+        </select>
+
+        <label for="f-comentario">Comentário ou sugestão (opcional)</label>
+        <textarea id="f-comentario" name="Comentário" placeholder="O que você achou? Tem alguma dica que gostaria de ver aqui?"></textarea>
+
+        <button type="submit" class="btn" id="btn-feedback">Enviar Feedback ✉️</button>
+      </form>
+
+      <div id="form-success">
+        <div class="check">✅</div>
+        <p>Obrigado pela sua participação!</p>
+        <p style="font-weight:400; color:#555; font-size:0.9rem; margin-top:8px;">
+          Seu feedback foi registrado e vai ajudar a melhorar este projeto na comunidade de Goianinha/RN.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Rodapé -->
+<footer>
+  <p><strong>Segurança Digital para Todos</strong> · Goianinha/RN</p>
+  <p style="margin-top:6px;">Projeto de Extensão Universitária · CST em Análise e Desenvolvimento de Sistemas · UNINTER</p>
+  <p style="margin-top:6px;">Aluno: <strong>João Marcelo Delmiro da Silva</strong> · RU 4932112</p>
+  <p style="margin-top:6px; font-size:0.78rem;">ODS 4: Educação de Qualidade | ODS 10: Redução das Desigualdades</p>
+</footer>
+
+<script>
+  /* Abas de dicas */
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  /* Perguntas do quiz */
+  const questions = [
+    {
+      q: "Qual das opções abaixo é um exemplo de senha FORTE?",
+      options: ["123456", "goianinha", "Maria@2024!", "senha"],
+      correct: 2,
+      explanation: "Uma senha forte mistura letras maiúsculas, minúsculas, números e símbolos!"
+    },
+    {
+      q: "Você recebe uma mensagem no WhatsApp dizendo que ganhou um prêmio e precisa informar seus dados bancários. O que você faz?",
+      options: ["Responde e envia os dados", "Ignora e apaga a mensagem", "Encaminha para os amigos", "Clica no link para saber mais"],
+      correct: 1,
+      explanation: "Esse é um golpe clássico! Nunca envie dados pessoais ou bancários por mensagem."
+    },
+    {
+      q: "O que é verificação em duas etapas (2FA)?",
+      options: [
+        "Uma senha com dois caracteres",
+        "Uma segunda confirmação de identidade além da senha",
+        "Um tipo de vírus de computador",
+        "Um aplicativo de banco"
+      ],
+      correct: 1,
+      explanation: "O 2FA adiciona uma camada extra de segurança. Mesmo que alguém descubra sua senha, não consegue acessar sua conta."
+    },
+    {
+      q: "Você está em um café e quer acessar o aplicativo do seu banco. Qual a atitude mais segura?",
+      options: [
+        "Conectar no Wi-Fi gratuito do local e acessar normalmente",
+        "Usar os dados móveis do seu celular",
+        "Pedir a senha do Wi-Fi para o atendente",
+        "Usar o computador do café"
+      ],
+      correct: 1,
+      explanation: "Redes Wi-Fi públicas podem ser interceptadas. Sempre use seus dados móveis para acessar serviços sensíveis."
+    },
+    {
+      q: "Qual dessas práticas ajuda a proteger seu celular de vírus?",
+      options: [
+        "Instalar aplicativos de qualquer site da internet",
+        "Nunca atualizar o sistema operacional",
+        "Manter o sistema e aplicativos sempre atualizados",
+        "Compartilhar sua senha de desbloqueio"
+      ],
+      correct: 2,
+      explanation: "As atualizações corrigem falhas de segurança. Mantenha tudo atualizado!"
+    }
+  ];
+
+  let current = 0, score = 0;
+
+  function loadQuestion() {
+    const q = questions[current];
+    document.getElementById('q-text').textContent = `Pergunta ${current + 1} de ${questions.length}: ${q.q}`;
+    const ol = document.getElementById('q-options');
+    ol.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<label><input type="radio" name="quiz" value="${i}"> ${opt}</label>`;
+      ol.appendChild(li);
+    });
+    document.getElementById('quiz-result').style.display = 'none';
+
+    // botão volta para o estado "Responder"
+    const btn = document.getElementById('btn-action');
+    btn.textContent = 'Responder';
+    btn.onclick = checkAnswer;
+    btn.style.display = 'inline-block';
+
+    document.getElementById('q-area').style.display = 'block';
+    document.getElementById('quiz-final').style.display = 'none';
+  }
+
+  function checkAnswer() {
+    const sel = document.querySelector('input[name="quiz"]:checked');
+    if (!sel) { alert('Selecione uma resposta!'); return; }
+
+    const val = parseInt(sel.value);
+    const q = questions[current];
+    const labels = document.querySelectorAll('#q-options label');
+    const res = document.getElementById('quiz-result');
+
+    labels.forEach((lbl, i) => {
+      if (i === q.correct) lbl.classList.add('correct');
+      else if (i === val && val !== q.correct) lbl.classList.add('wrong');
+    });
+    document.querySelectorAll('input[name="quiz"]').forEach(inp => inp.disabled = true);
+
+    if (val === q.correct) {
+      score++;
+      res.className = 'ok';
+      res.innerHTML = `✅ Correto! ${q.explanation}`;
+    } else {
+      res.className = 'err';
+      res.innerHTML = `❌ Resposta errada. ${q.explanation}`;
+    }
+    res.style.display = 'block';
+
+    // o mesmo botão agora avança
+    const btn = document.getElementById('btn-action');
+    if (current + 1 >= questions.length) {
+      btn.textContent = 'Ver resultado 🏆';
+      btn.onclick = showFinal;
+    } else {
+      btn.textContent = 'Próxima pergunta →';
+      btn.onclick = goNext;
+    }
+  }
+
+  function goNext() {
+    current++;
+    loadQuestion();
+  }
+
+  function showFinal() {
+    document.getElementById('q-area').style.display = 'none';
+    document.getElementById('quiz-final').style.display = 'block';
+    const pct = Math.round((score / questions.length) * 100);
+    let msg = pct === 100 ? '🎉 Parabéns! Você acertou tudo!' :
+              pct >= 60  ? `Você acertou ${score} de ${questions.length}. Bom trabalho!` :
+                           `Você acertou ${score} de ${questions.length}. Continue aprendendo!`;
+    document.getElementById('final-score').textContent = msg;
+  }
+
+  function restartQuiz() {
+    current = 0; score = 0;
+    loadQuestion();
+  }
+
+  /* Formulário de feedback (envia para o Formspree) */
+  function submitFeedback(event) {
+    event.preventDefault(); // nao recarrega a pagina
+
+    const idade = document.getElementById('f-idade').value;
+    const aval = document.getElementById('f-avaliacao').value;
+    if (idade === '' || aval === '') {
+      alert('Por favor, preencha a faixa etaria e a avaliacao.');
+      return;
+    }
+
+    const form = document.getElementById('form-area');
+    const dados = new FormData(form);
+
+    // envia os dados para o Formspree
+    fetch('https://formspree.io/f/mvznzqpq', {
+      method: 'POST',
+      body: dados,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(resposta) {
+      if (resposta.ok) {
+        form.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      } else {
+        alert('Nao foi possivel enviar. Tente novamente.');
+      }
+    });
+  }
+
+  /* Início: carrega a primeira pergunta do quiz */
+  window.addEventListener('load', () => {
+    loadQuestion();
+  });
+</script>
+</body>
+</html>
